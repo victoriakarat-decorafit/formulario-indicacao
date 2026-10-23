@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Indicação Decorafit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --laranja: #FF6633;
+    --laranja-escuro: #E8521F;
+    --azul: #262D3B;
+    --cinza: #BEBDBE;
+    --cinza-claro: #F4F4F5;
+    --branco: #FFFFFF;
+    --erro: #D93025;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--cinza-claro);
+    color: var(--azul);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 520px;
+    background: var(--branco);
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(38, 45, 59, 0.10);
+    overflow: hidden;
+  }
+
+  .topo {
+    background: var(--azul);
+    color: var(--branco);
+    padding: 32px 32px 28px;
+    position: relative;
+  }
+  .topo::after {
+    content: "";
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 100%; height: 4px;
+    background: var(--laranja);
+  }
+  .marca {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--laranja);
+    margin-bottom: 10px;
+  }
+  .topo h1 { font-size: 26px; font-weight: 700; line-height: 1.2; }
+  .topo p { margin-top: 8px; font-size: 15px; color: var(--cinza); line-height: 1.5; }
+
+  form { padding: 28px 32px 32px; }
+
+  .campo { margin-bottom: 20px; }
+
+  label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .obrigatorio { color: var(--laranja); }
+
+  input[type="text"], input[type="tel"], input[type="email"] {
+    width: 100%;
+    height: 50px;
+    padding: 0 16px;
+    font: inherit;
+    font-size: 16px; /* evita zoom automático no iOS */
+    color: var(--azul);
+    background: var(--branco);
+    border: 1.5px solid var(--cinza);
+    border-radius: 10px;
+    outline: none;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  input::placeholder { color: #9A999B; }
+  input:focus {
+    border-color: var(--laranja);
+    box-shadow: 0 0 0 3px rgba(255, 102, 51, 0.18);
+  }
+  .campo.invalido input { border-color: var(--erro); }
+
+  .msg-erro {
+    display: none;
+    font-size: 13px;
+    color: var(--erro);
+    margin-top: 6px;
+  }
+  .campo.invalido .msg-erro { display: block; }
+
+  button {
+    width: 100%;
+    height: 54px;
+    margin-top: 8px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--laranja);
+    color: var(--branco);
+    font: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .15s, transform .05s;
+  }
+  button:hover { background: var(--laranja-escuro); }
+  button:active { transform: translateY(1px); }
+  button:disabled { opacity: .6; cursor: wait; }
+
+  .aviso {
+    margin-top: 14px;
+    font-size: 12px;
+    color: #7A797B;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  .sucesso {
+    display: none;
+    padding: 48px 32px;
+    text-align: center;
+  }
+  .sucesso .icone {
+    width: 64px; height: 64px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: var(--laranja);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .sucesso h2 { font-size: 22px; margin-bottom: 8px; }
+  .sucesso p { color: #5C5F66; line-height: 1.5; }
+  .enviado form { display: none; }
+  .enviado .sucesso { display: block; }
+
+  @media (max-width: 480px) {
+    body { padding: 0; align-items: stretch; background: var(--branco); }
+    .card { border-radius: 0; box-shadow: none; min-height: 100vh; }
+    .topo { padding: 28px 20px 24px; }
+    .topo h1 { font-size: 22px; }
+    form { padding: 24px 20px 32px; }
+  }
+</style>
+</head>
+<body>
+  <main class="card" id="card">
+    <header class="topo">
+      <div class="marca">Decorafit</div>
+      <h1>Programa de Indicação</h1>
+      <p>Preencha seus dados para participar do programa.</p>
+    </header>
+
+    <form id="form" novalidate>
+      <div class="campo">
+        <label for="nome">Nome completo <span class="obrigatorio">*</span></label>
+        <input type="text" id="nome" name="nome" autocomplete="name" placeholder="Seu nome e sobrenome">
+        <div class="msg-erro">Informe seu nome e sobrenome.</div>
+      </div>
+
+      <div class="campo">
+        <label for="telefone">Telefone <span class="obrigatorio">*</span></label>
+        <input type="tel" id="telefone" name="telefone" autocomplete="tel" inputmode="numeric" placeholder="(00) 00000-0000" maxlength="15">
+        <div class="msg-erro">Informe um telefone válido com DDD.</div>
+      </div>
+
+      <div class="campo">
+        <label for="email">E-mail <span class="obrigatorio">*</span></label>
+        <input type="email" id="email" name="email" autocomplete="email" inputmode="email" placeholder="seu@email.com">
+        <div class="msg-erro">Informe um e-mail válido.</div>
+      </div>
+
+      <div class="campo">
+        <label for="creci">CRECI <span class="obrigatorio">*</span></label>
+        <input type="text" id="creci" name="creci" autocomplete="off" placeholder="Ex.: 123456-F">
+        <div class="msg-erro">Informe o número do seu CRECI.</div>
+      </div>
+
+      <div class="campo">
+        <label for="pix">Chave PIX <span class="obrigatorio">*</span></label>
+        <input type="text" id="pix" name="pix" autocomplete="off" placeholder="CPF, CNPJ, e-mail, telefone ou chave aleatória">
+        <div class="msg-erro">Informe sua chave PIX.</div>
+      </div>
+
+      <button type="submit" id="enviar">Enviar indicação</button>
+      <p class="aviso">Seus dados serão usados apenas para o contato sobre esta indicação.</p>
+    </form>
+
+    <div class="sucesso" role="status">
+      <div class="icone">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+      <h2>Indicação enviada!</h2>
+      <p>Obrigado. Nossa equipe entrará em contato em breve.</p>
+    </div>
+  </main>
+
+<script>
+  // URL do App da Web do Apps Script (apps-script-formulario-indicacao.gs), termina em /exec.
+  // Enquanto estiver vazia, os dados só aparecem no console do navegador.
+  const URL_ENVIO = "COLE_AQUI_A_URL_DO_APPS_SCRIPT";
+
+  const form = document.getElementById("form");
+  const tel = document.getElementById("telefone");
+
+  tel.addEventListener("input", () => {
+    const d = tel.value.replace(/\D/g, "").slice(0, 11);
+    let v = d;
+    if (d.length > 2) v = `(${d.slice(0, 2)}) ${d.slice(2)}`;
+    if (d.length > 6) v = `(${d.slice(0, 2)}) ${d.slice(2, d.length - 4)}-${d.slice(-4)}`;
+    tel.value = v;
+  });
+
+  const regras = {
+    nome: v => v.trim().split(/\s+/).filter(p => p.length > 1).length >= 2,
+    telefone: v => /^\d{10,11}$/.test(v.replace(/\D/g, "")),
+    email: v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()),
+    creci: v => /\d{3,}/.test(v),
+    pix: v => v.trim().length >= 5,
+  };
+
+  function validar() {
+    let ok = true;
+    for (const [id, regra] of Object.entries(regras)) {
+      const campo = document.getElementById(id).closest(".campo");
+      const valido = regra(document.getElementById(id).value);
+      campo.classList.toggle("invalido", !valido);
+      if (!valido) ok = false;
+    }
+    return ok;
+  }
+
+  form.addEventListener("input", e => {
+    const campo = e.target.closest(".campo");
+    if (campo && campo.classList.contains("invalido")) validar();
+  });
+
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    if (!validar()) {
+      form.querySelector(".invalido input")?.focus();
+      return;
+    }
+
+    const dados = {
+      nome: form.nome.value.trim(),
+      telefone: form.telefone.value,
+      email: form.email.value.trim(),
+      creci: form.creci.value.trim(),
+      pix: form.pix.value.trim(),
+      enviado_em: new Date().toISOString(),
+    };
+
+    const botao = document.getElementById("enviar");
+    botao.disabled = true;
+    botao.textContent = "Enviando...";
+
+    try {
+      if (URL_ENVIO.startsWith("https://")) {
+        await fetch(URL_ENVIO, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(dados),
+        });
+      } else {
+        console.log("Dados do formulário:", dados);
+      }
+      document.getElementById("card").classList.add("enviado");
+    } catch (err) {
+      alert("Não foi possível enviar agora. Tente novamente.");
+      botao.disabled = false;
+      botao.textContent = "Enviar indicação";
+    }
+  });
+</script>
+</body>
+</html>
