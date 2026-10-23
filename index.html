@@ -145,6 +145,13 @@
   }
   .sucesso h2 { font-size: 22px; margin-bottom: 8px; }
   .sucesso p { color: #5C5F66; line-height: 1.5; }
+  .sucesso .secundario {
+    margin-top: 28px;
+    background: var(--branco);
+    color: var(--laranja);
+    border: 1.5px solid var(--laranja);
+  }
+  .sucesso .secundario:hover { background: rgba(255, 102, 51, 0.06); }
   .enviado form { display: none; }
   .enviado .sucesso { display: block; }
 
@@ -206,6 +213,7 @@
       </div>
       <h2>Indicação enviada!</h2>
       <p>Obrigado. Nossa equipe entrará em contato em breve.</p>
+      <button type="button" class="secundario" id="nova">Preencher novamente</button>
     </div>
   </main>
 
@@ -286,6 +294,16 @@
       botao.disabled = false;
       botao.textContent = "Enviar indicação";
     }
+  });
+
+  document.getElementById("nova").addEventListener("click", () => {
+    form.reset();
+    const botao = document.getElementById("enviar");
+    botao.disabled = false;
+    botao.textContent = "Enviar indicação";
+    document.getElementById("card").classList.remove("enviado");
+    window.scrollTo({ top: 0 });
+    document.getElementById("nome").focus();
   });
 </script>
 </body>
